@@ -12,5 +12,12 @@
 
 #ifndef LEXER_H
 # define LEXER_H
+# include "./libft/libft.h"
+# define PIPE 1
+# define IN 2
+# define OUT 3
+# define HERDOC 4
+# define OUTP 5
+# define STRING 6
 
-# include "../libft.h"
+#endif
