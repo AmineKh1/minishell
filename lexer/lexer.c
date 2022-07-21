@@ -32,22 +32,24 @@ int main(int argc, char **argv)
         }
         i++;
     }
+    t_list *h;
+	t_list *fre;
+	fre = NULL;
+    h = lexer;
     while (lexer != NULL)
     {
-        printf("%s\n", lexer->content);
-    // if (ft_memcmp(lexer->content, "|", 2) == 0 && lexer->next->type == STRING)
-	// 	lexer->content = lexer->next->content;
-	// else if (ft_memcmp(lexer->content, ">>", 3) == 0 && lexer->next->type == STRING)
-	// 	lexer->content = lexer->next->content;
-	// else if (ft_memcmp(lexer->content, ">", 2) == 0 && lexer->next->type == STRING)
-	// 	lexer->content = lexer->next->content;
-	// else if (ft_memcmp(lexer->content, "<", 2) == 0 && lexer->next->type == STRING)
-	// 	lexer->content = lexer->next->content;
-	// else if (ft_memcmp(lexer->content, "<<", 3) == 0 && lexer->next->type == STRING)
-	// 	lexer->content = lexer->next->content;
-	
-	// ft_lstdelone(lexer->next);
-    printf("%d\n", lexer->type);
-    lexer = lexer->next;
-    }
+    if ((ft_memcmp(lexer->content, "|", 2) == 0 || ft_memcmp(lexer->content, ">>", 3) == 0 || ft_memcmp(lexer->content, ">", 2) == 0 || ft_memcmp(lexer->content, "<", 2) == 0 || ft_memcmp(lexer->content, "<<", 3) == 0) && lexer->next != NULL && lexer->next->type == STRING)
+	{
+		fre = lexer->next;
+		lexer->content = lexer->next->content;
+		lexer->next = lexer->next->next;
+		// ft_lstdelone(fre);
+	}
+	printf("%s\n", lexer->content);
+	printf("%d\n", lexer->type);
+	lexer = lexer->next;
+	}
+	lexer = h;
+	// i need to write a function that take as argment my linked list and the node that i wanna delete then rebuild my linked list withut the node
+	// while(1);
 }
