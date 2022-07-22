@@ -36,7 +36,7 @@ static int	nbrarray(char const *s, char c)
 	return (nbrstr);
 }
 
-static void	frealltab(char **str)
+void	frealltab(char **str)
 {
 	int	l;
 

@@ -13,8 +13,8 @@ all: ${NAME}
 ${NAME}: ${OBJ}
 bonus: ${OBJB}
 %.o : %.c
-	${CC} ${CFLAGS} -c $< -o $@
-	ar -rc ${NAME} $@
+	@${CC} ${CFLAGS} -c $< -o $@
+	@ar -rc ${NAME} $@
 clean:
 	@${RM} ${OBJ} ${OBJB}
 

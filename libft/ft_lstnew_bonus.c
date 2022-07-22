@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-# include "../lexer.h"
+# include "../lexer/lexer.h"
 
 t_list	*ft_lstnew(char *content)
 {
