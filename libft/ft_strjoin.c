@@ -31,5 +31,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[i])
 		str[l++] = s2[i++];
 	str[l] = '\0';
+	free((void *)s2);
 	return (&str[0]);
 }

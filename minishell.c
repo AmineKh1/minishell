@@ -6,12 +6,42 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:01:14 by akhouya           #+#    #+#             */
-/*   Updated: 2022/07/23 23:43:44 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/07/24 14:35:17 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char **concatnate_strings(t_list *lst)
+{
+	char **str;
+	int count;
+	t_list *tmp;
+	str = NULL;
+	count = 0;
+	if(!lst)
+		return NULL;
+	tmp = lst;
+	while(tmp->next != NULL)
+	{
+		if(tmp->type == 0)
+			count++;
+		
+		if(tmp->type == 1)
+			tmp->next->content = ft_strjoin(tmp->content, tmp->next->content);
+		tmp = tmp->next;
+	}
+	str = malloc(sizeof(char*) * (count + 1));
+	str[count] = 0;
+	count = 0;
+	while(lst)
+	{
+		if(lst->type == 0)
+			str[count++] = ft_strdup(lst->content);
+		lst = lst->next;
+	}
+	return str;
+}
 char **command_string(char *command)
 {
 	char	**s;
@@ -22,50 +52,8 @@ char **command_string(char *command)
 	int count;
 	t_list *list_command;
 	t_list *tmp;
-
-	
-	// s = ft_split(command, ' ');
-	// while
 	s = NULL;
 	list_command = NULL;
-	i = 0;
-	j = 0;
-	count = 0;
-	// while (command[i])
-	// {
-	// 	if (command[i] == '\''  || command[i] == '"')
-	// 	{
-	// 		j = i + 1;
-	// 		c = command[i];
-	// 		while (command[i]  != c && command[i])
-	// 			i++;
-	// 		// printf("%c\n", command[i]);
-	// 		if (!command[i])
-	// 			exit(1);
-	// 		if(command[i + 1] == ' ' || !command[i + 1])
-	// 			count++;
-	// 	}
-	// 	else if (command[i] == ' ' || i == 0)
-	// 	{
-	// 		j = i + 1;
-	// 		while (command[i]  != ' ' && command[i] && command[i] != '\'' && command[i] != '"')
-	// 			i++;
-	// 		// {
-	// 		// 	if (command[i] == '\'' || command[i] == '"')
-	// 		// 	{
-	// 		// 		c = command[i];
-	// 		// 		while (command[++i]  != c && command[i]);
-	// 		// 		if (!command[i])
-	// 		// 			exit(1);
-	// 		// 	}
-	// 		// }
-	// 		if (command[i] == ' ' || !command[i])
-	// 			count++;
-	// 	}
-	// 	i++;
-	// }
-	// s = malloc(sizeof(char*) * (count + 1));
-	// s[count] = 0;
 	count = 0;
 	i = 0;
 	j = 0;
@@ -78,44 +66,41 @@ char **command_string(char *command)
 			i++;
 			while (command[i]  != c && command[i])
 				i++;
-			// exit(0);
-			if (!command[i])
+			if (command[i] == '\0')
 				exit(1);
 			str = ft_substr(&command[j],0, i - j);
-			printf("%s\n", str);
 			tmp = ft_lstnew(str);
-			if(command[i + 1] != ' ' || !command[i + 1])
+			i++;
+			if(command[i] == ' ' || !command[i])
 				tmp->type = 0;
 			else
 				tmp->type = 1;
 			ft_lstadd_back(&list_command, tmp);
-			free(str);
+			str = NULL;
 			count++;
+			tmp = NULL;
+			
 		}
-		else if (command[i] == ' ' || i == 0)
+		else
 		{
-			if(i == 0)
-				j = i;
-			else
-				j = i + 1;
+			if(command[i]  == ' ')
+				i++;
+			j = i;
 			while (command[i]  != ' ' && command[i] && command[i] != '"' && command[i] != '\'')
 				i++;
 			str = ft_substr(&command[j],0, i - j);
-			printf("%s\n", str);
 			tmp = ft_lstnew(str);
 			if(command[i] == '\'' || command[i] == '"')
 				tmp->type = 1;
 			else
 				tmp->type = 0;
 			ft_lstadd_back(&list_command, tmp);
-			
 			count++;
-			free(str);
-			// printf("%d\n", i);
+			str = NULL;
+			tmp = NULL;
 		}
-		i++;
 	}
-	printf("%d\n", count);
+	s = concatnate_strings(list_command);
 	return s;
 }
 
@@ -134,10 +119,10 @@ int main(int argc, char **argv)
 		
 		s = command_string(command);
 		i = -1;
-	// 	while(s[++i] != 0)
-	// 		printf("%s\n", s[i]);
-	// 	frealltab(s);
-	// 	free(s);
-	// 	free(command);
+		while(s[++i] != 0)
+			printf("%s\n", s[i]);
+		// frealltab(s);
+		// free(s);
+		// free(command);
     }
 }
