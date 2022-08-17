@@ -12,17 +12,16 @@
 
 #include "libft.h"
 # include "../lexer/lexer.h"
+#include "minishell.h"
 
 t_list	*ft_lstnew(char *content)
 {
 	t_list	*lst;
-	int i;
 
 	lst = malloc(sizeof(t_list));
 	if (!lst)
 		return (NULL);
 	lst->content = content;
-	i = 0;
 	if (ft_memcmp(content, "|", 2) == 0)
 		lst->type = (int)PIPE;
 	else if (ft_memcmp(content, ">>", 3) == 0)
@@ -35,6 +34,18 @@ t_list	*ft_lstnew(char *content)
 		lst->type = (int)HERDOC;
 	else
 		lst->type = (int)STRING;
+	lst->next = NULL;
+	return (lst);
+}
+t_env	*ft_lstnew_env(char *key, char *value)
+{
+	t_env	*lst;
+
+	lst = malloc(sizeof(t_env));
+	if (!lst)
+		return (NULL);
+	lst->key = key;
+	lst->value = value;
 	lst->next = NULL;
 	return (lst);
 }

@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
+#include "minishell.h"
 
 typedef struct s_list
 {
@@ -68,4 +69,8 @@ void	ft_lstclear(t_list **lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *));
+t_env	*ft_lstnew_env(char *key, char *value);
+void	ft_lstadd_front_env(t_env **lst, t_env *new);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+t_env	*ft_lstlast_env(t_env *lst);
 #endif

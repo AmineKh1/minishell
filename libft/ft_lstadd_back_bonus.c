@@ -21,3 +21,12 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	ft_lstlast(*lst)->next = new;
 }
+void	ft_lstadd_back_env(t_env **lst, t_env *new)
+{
+	if (!*lst)
+	{
+		ft_lstadd_front_env(lst, new);
+		return ;
+	}
+	ft_lstlast_env(*lst)->next = new;
+}

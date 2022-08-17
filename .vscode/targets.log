@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Sun Jul 24 14:27:52 2022
+# Make data base, printed on Wed Aug 17 12:24:22 2022
 
 # Variables
 
@@ -27,7 +26,7 @@ SRC = minishell.c
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/akhouya/Desktop/minishell
+CURDIR := /Users/akhouya/Desktop/mini
 # makefile
 SHELL = /bin/sh
 # makefile (from `Makefile', line 8)
@@ -41,9 +40,9 @@ MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.Bb1SvLElEH/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.IsoRnl48yy/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -51,11 +50,11 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.T72hQkuP3y/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.whk8YTqtFD/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-PWD = /Users/akhouya/Desktop/minishell
+PWD = /Users/akhouya/Desktop/mini
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
@@ -65,11 +64,11 @@ HOME = /Users/akhouya
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/akhouya/Library/Application Support/Code/CachedData/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
+VSCODE_CODE_CACHE_PATH = /Users/akhouya/Library/Application Support/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LOGNAME = akhouya
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 ZSH = /Users/akhouya/.oh-my-zsh
 # environment
@@ -85,7 +84,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 1
 # makefile (from `Makefile', line 2)
-CC = gcc -lreadline -g 
+CC = gcc  -lreadline 
 # default
 MAKE_VERSION := 3.81
 # environment
@@ -107,7 +106,7 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n0000gwc0003z3/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/akhouya/Library/Application Support/Code/1.69.1-main.sock
+VSCODE_IPC_HOOK = /Users/akhouya/Library/Application Support/Code/1.70.1-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -117,7 +116,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000005.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -135,7 +134,7 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 18743
+SECURITYSESSIONID = 186a7
 # automatic
 ^F = $(notdir $^)
 # default
@@ -147,9 +146,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 54389
+VSCODE_PID = 13435
 # variable set hash-table stats:
-# Load=68/1024=7%, Rehash=0, Collisions=3/96=3%
+# Load=68/1024=7%, Rehash=0, Collisions=3/100=3%
 
 # Pattern-specific Variable Values
 
@@ -157,15 +156,15 @@ VSCODE_PID = 54389
 
 # Directories
 
-# . (device 16777227, inode 5872731): 13 files, no impossibilities.
+# . (device 16777227, inode 6519287): 14 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 %.o: %.c
 #  commands to execute (from `Makefile', line 14):
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o  $@ 
 	
 
 # 1 implicit rules, 0 (0.0%) terminal.
@@ -177,13 +176,13 @@ all: minishell
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 
 libft: libft/libft.a
 #  Implicit rule search has been done.
-#  Last modified 2022-07-24 14:27:42
+#  Last modified 2022-08-16 20:54:12
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -198,7 +197,7 @@ libft: libft/libft.a
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-24 14:27:29
+#  Last modified 2022-08-16 20:54:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -206,11 +205,11 @@ Makefile:
 
 minishell: libft minishell.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-24 14:27:43
+#  Last modified 2022-08-17 07:20:01
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  commands to execute (from `Makefile', line 11):
 	@${CC} libft/libft.a ${OBJ} -o ${NAME}
 	
@@ -218,18 +217,34 @@ minishell: libft minishell.o
 minishell.o: minishell.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `minishell'
-#  Last modified 2022-07-24 14:27:42
+#  Last modified 2022-08-17 07:20:01
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := minishell.o
+# automatic
+# % := 
+# automatic
+# * := minishell
+# automatic
+# + := minishell.c
+# automatic
+# | := 
+# automatic
+# < := minishell.c
+# automatic
+# ^ := minishell.c
+# automatic
+# ? := minishell.c
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
 #  commands to execute (from `Makefile', line 14):
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o  $@ 
 	
 
 libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-24 14:27:42
+#  Last modified 2022-08-16 20:54:12
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 17):
@@ -264,7 +279,7 @@ clean:
 # Not a target:
 minishell.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-24 14:27:04
+#  Last modified 2022-08-17 11:10:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -283,6 +298,6 @@ minishell.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jul 24 14:27:52 2022
+# Finished Make data base on Wed Aug 17 12:24:22 2022
 
  

@@ -1,5 +1,5 @@
 NAME = minishell
-CC = gcc -lreadline -g #-fsanitize=address
+CC = gcc  -lreadline #-fsanitize=address
 # CFLAGS = -Werror -Wextra -Wall
 
 SRC =  minishell.c
@@ -11,7 +11,7 @@ ${NAME}: libft ${OBJ}
 	@${CC} libft/libft.a ${OBJ} -o ${NAME}
 
 %.o: %.c
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o  $@ 
 libft: libft/libft.a
 libft/libft.a:
 	@${MAKE} -C libft

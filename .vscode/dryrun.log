@@ -1,5 +1,105 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/akhouya/Desktop/minishell'
-make: Nothing to be done for `all'.
-make: Leaving directory `/Users/akhouya/Desktop/minishell'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/akhouya/Desktop/mini'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C libft
+ 
+make[1]: Entering directory `/Users/akhouya/Desktop/mini/libft'
+gcc -Wall -Wextra -Werror -c ft_isalpha.c -o ft_isalpha.o
+ar -rc libft.a ft_isalpha.o
+gcc -Wall -Wextra -Werror -c ft_isdigit.c -o ft_isdigit.o
+ar -rc libft.a ft_isdigit.o
+gcc -Wall -Wextra -Werror -c ft_isalnum.c -o ft_isalnum.o
+ar -rc libft.a ft_isalnum.o
+ 
+gcc -Wall -Wextra -Werror -c ft_isascii.c -o ft_isascii.o
+ar -rc libft.a ft_isascii.o
+gcc -Wall -Wextra -Werror -c ft_isprint.c -o ft_isprint.o
+ar -rc libft.a ft_isprint.o
+gcc -Wall -Wextra -Werror -c ft_strlen.c -o ft_strlen.o
+ar -rc libft.a ft_strlen.o
+gcc -Wall -Wextra -Werror -c ft_memset.c -o ft_memset.o
+ar -rc libft.a ft_memset.o
+gcc -Wall -Wextra -Werror -c ft_toupper.c -o ft_toupper.o
+ar -rc libft.a ft_toupper.o
+gcc -Wall -Wextra -Werror -c ft_tolower.c -o ft_tolower.o
+ar -rc libft.a ft_tolower.o
+gcc -Wall -Wextra -Werror -c ft_strchr.c -o ft_strchr.o
+ar -rc libft.a ft_strchr.o
+ 
+gcc -Wall -Wextra -Werror -c ft_strrchr.c -o ft_strrchr.o
+ar -rc libft.a ft_strrchr.o
+gcc -Wall -Wextra -Werror -c ft_strncmp.c -o ft_strncmp.o
+ar -rc libft.a ft_strncmp.o
+gcc -Wall -Wextra -Werror -c ft_bzero.c -o ft_bzero.o
+ar -rc libft.a ft_bzero.o
+gcc -Wall -Wextra -Werror -c ft_memcpy.c -o ft_memcpy.o
+ar -rc libft.a ft_memcpy.o
+gcc -Wall -Wextra -Werror -c ft_memmove.c -o ft_memmove.o
+ar -rc libft.a ft_memmove.o
+gcc -Wall -Wextra -Werror -c ft_memchr.c -o ft_memchr.o
+ar -rc libft.a ft_memchr.o
+gcc -Wall -Wextra -Werror -c ft_memcmp.c -o ft_memcmp.o
+ar -rc libft.a ft_memcmp.o
+gcc -Wall -Wextra -Werror -c ft_atoi.c -o ft_atoi.o
+ar -rc libft.a ft_atoi.o
+gcc -Wall -Wextra -Werror -c ft_strlcpy.c -o ft_strlcpy.o
+ar -rc libft.a ft_strlcpy.o
+ 
+gcc -Wall -Wextra -Werror -c ft_strlcat.c -o ft_strlcat.o
+ar -rc libft.a ft_strlcat.o
+gcc -Wall -Wextra -Werror -c ft_strdup.c -o ft_strdup.o
+ar -rc libft.a ft_strdup.o
+gcc -Wall -Wextra -Werror -c ft_calloc.c -o ft_calloc.o
+ar -rc libft.a ft_calloc.o
+gcc -Wall -Wextra -Werror -c ft_substr.c -o ft_substr.o
+ar -rc libft.a ft_substr.o
+gcc -Wall -Wextra -Werror -c ft_strjoin.c -o ft_strjoin.o
+ar -rc libft.a ft_strjoin.o
+gcc -Wall -Wextra -Werror -c ft_strtrim.c -o ft_strtrim.o
+ar -rc libft.a ft_strtrim.o
+gcc -Wall -Wextra -Werror -c ft_split.c -o ft_split.o
+ar -rc libft.a ft_split.o
+gcc -Wall -Wextra -Werror -c ft_strmapi.c -o ft_strmapi.o
+ar -rc libft.a ft_strmapi.o
+gcc -Wall -Wextra -Werror -c ft_strnstr.c -o ft_strnstr.o
+ar -rc libft.a ft_strnstr.o
+gcc -Wall -Wextra -Werror -c ft_striteri.c -o ft_striteri.o
+ar -rc libft.a ft_striteri.o
+ 
+gcc -Wall -Wextra -Werror -c ft_putchar_fd.c -o ft_putchar_fd.o
+ar -rc libft.a ft_putchar_fd.o
+gcc -Wall -Wextra -Werror -c ft_putstr_fd.c -o ft_putstr_fd.o
+ar -rc libft.a ft_putstr_fd.o
+gcc -Wall -Wextra -Werror -c ft_itoa.c -o ft_itoa.o
+ar -rc libft.a ft_itoa.o
+gcc -Wall -Wextra -Werror -c ft_putendl_fd.c -o ft_putendl_fd.o
+ar -rc libft.a ft_putendl_fd.o
+gcc -Wall -Wextra -Werror -c ft_putnbr_fd.c -o ft_putnbr_fd.o
+ar -rc libft.a ft_putnbr_fd.o
+make[1]: Leaving directory `/Users/akhouya/Desktop/mini/libft'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C libft bonus
+ 
+make[1]: Entering directory `/Users/akhouya/Desktop/mini/libft'
+gcc -Wall -Wextra -Werror -c ft_lstnew_bonus.c -o ft_lstnew_bonus.o
+ar -rc libft.a ft_lstnew_bonus.o
+ 
+gcc -Wall -Wextra -Werror -c ft_lstadd_front_bonus.c -o ft_lstadd_front_bonus.o
+ar -rc libft.a ft_lstadd_front_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstsize_bonus.c -o ft_lstsize_bonus.o
+ar -rc libft.a ft_lstsize_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstlast_bonus.c -o ft_lstlast_bonus.o
+ar -rc libft.a ft_lstlast_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstadd_back_bonus.c -o ft_lstadd_back_bonus.o
+ar -rc libft.a ft_lstadd_back_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstdelone_bonus.c -o ft_lstdelone_bonus.o
+ar -rc libft.a ft_lstdelone_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstclear_bonus.c -o ft_lstclear_bonus.o
+ar -rc libft.a ft_lstclear_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstiter_bonus.c -o ft_lstiter_bonus.o
+ar -rc libft.a ft_lstiter_bonus.o
+gcc -Wall -Wextra -Werror -c ft_lstmap_bonus.c -o ft_lstmap_bonus.o
+ar -rc libft.a ft_lstmap_bonus.o
+make[1]: Leaving directory `/Users/akhouya/Desktop/mini/libft'
+gcc  -lreadline   -c minishell.c -o  minishell.o 
+gcc  -lreadline  libft/libft.a minishell.o -o minishell
+make: Leaving directory `/Users/akhouya/Desktop/mini'
  

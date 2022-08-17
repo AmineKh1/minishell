@@ -17,3 +17,8 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	new->next = *lst;
 	*lst = new;
 }
+void	ft_lstadd_front_env(t_env **lst, t_env *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
