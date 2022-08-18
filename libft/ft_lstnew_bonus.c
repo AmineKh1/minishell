@@ -12,7 +12,6 @@
 
 #include "libft.h"
 # include "../lexer/lexer.h"
-#include "minishell.h"
 
 t_list	*ft_lstnew(char *content)
 {

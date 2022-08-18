@@ -8,10 +8,10 @@ OBJ = ${SRC:.c=.o}
 RM = rm -rf
 all: ${NAME}
 ${NAME}: libft ${OBJ}
-	@${CC} libft/libft.a ${OBJ} -o ${NAME}
+	${CC} libft/libft.a ${OBJ} -o ${NAME}
 
 %.o: %.c
-	@${CC} ${CFLAGS} -c $< -o  $@ 
+	${CC} ${CFLAGS} -c $< -o  $@ 
 libft: libft/libft.a
 libft/libft.a:
 	@${MAKE} -C libft
@@ -23,4 +23,4 @@ clean:
 fclean: clean
 	@${MAKE} -C libft fclean
 	@${RM} ${OBJ}
-	
+re : clean all

@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
-#include "minishell.h"
 
 typedef struct s_list
 {
@@ -24,6 +23,13 @@ typedef struct s_list
 	int				type;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct s_env {
+    char *key;
+    char *value;
+    struct s_env *next;
+}       t_env;
+
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
