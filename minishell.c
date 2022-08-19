@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:01:14 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/18 20:13:51 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:06:21 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char *expend_add(char *str, t_env *env)
 	}
 	s1 = ft_substr(&str[j], 0, i - j + 1);
 	ret = ft_strjoin(ret, s1);
+	// system("leaks minishell");
+	free(str);
 	return ret;
 }
 
@@ -92,7 +94,41 @@ t_list *command_string(char *command, t_env *env)
 		return NULL;
 	while(command[i])
 	{
-		if (command[i] == '\'' || command[i] == '"')
+		if (command[i] == '|')
+		{
+			j = i;
+			i++;
+			str = ft_substr(&command[j], 0, i - j);
+			tmp = ft_lstnew(str);
+			tmp->type = 0;
+			ft_lstadd_back(&list_command, tmp);
+			str = NULL;
+		}
+		else if (command[i] == '<')
+		{
+			j = i;
+			i++;
+			if (command[i] == '<')
+				i++;
+			str = ft_substr(&command[j], 0, i - j);
+			tmp = ft_lstnew(str);
+			tmp->type = 0;
+			ft_lstadd_back(&list_command, tmp);
+			str = NULL;
+		}
+		else if (command[i] == '>')
+		{
+			j = i;
+			i++;
+			if (command[i] == '>')
+				i++;
+			str = ft_substr(&command[j], 0, i - j);
+			tmp = ft_lstnew(str);
+			tmp->type = 0;
+			ft_lstadd_back(&list_command, tmp);
+			str = NULL;
+		}
+		else if (command[i] == '\'' || command[i] == '"')
 		{
 			j = i + 1;
 			c = command[i];
@@ -107,50 +143,52 @@ t_list *command_string(char *command, t_env *env)
 				}
 				str = ft_substr(&command[j], 0, i - j);
 				//im gonna add expend her
-				if (c == '"' )
+				if (c == '"' && (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0))
 				{
 					// printf("quote %s\n", str);
 					str = expend_add(str, env);
 					// printf("%s", str);
-					
 				}
 					
 				tmp = ft_lstnew(str);
 				i++;
 				if (command[i] == ' ' || !command[i])
-					tmp->type = 0;
+					tmp->type = -1;
 				else
 					tmp->type = 1;
 				ft_lstadd_back(&list_command, tmp);
 				str = NULL;
-				tmp = NULL;
+				// tmp = NULL;
 		}
 		else
 		{
 			if (command[i] == ' ')
 				i++;
 			j = i;
-			while (command [i] && command[i] != ' ' && command[i] != '"' && command[i] !='\'')
+			while (command [i] && command[i] != ' ' && command[i] != '"' && command[i] !='\'' && command[i] != '<' && command[i] != '|' && command[i] != '>')
 				i++;
 			str = ft_substr(&command[j], 0, i - j);
 			// printf("space %s\n", str);
 		
-			if (list_command != NULL)
+			if (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0)
 			{
-				// if(ft_memcmp(tmp->content, "<<", 3) == 0)
+			
 				// 	exit(0);
-					// printf("%s", tmp->content);exit(0);
+					// system("leaks minishell");
 				str = expend_add(str, env);
 			}
 			// printf("%s", str);
+			
 			tmp = ft_lstnew(str);
+			
 			if (command[i] == '\'' || command[i] == '"')
 				tmp->type = 1;
 			else
 				tmp->type = 0;
 			ft_lstadd_back(&list_command, tmp);
 			str = NULL;
-			tmp = NULL;
+			// tmp = NULL;
+			// system("leaks minishell");
 			
 		}
 	}
@@ -210,6 +248,16 @@ void test_list(t_env *env)
 	}
 }
 
+// void token_list(t_list *env)
+// {
+// 	while(env)
+// 	{
+// 		if(env->value == -1)
+// 		{}
+// 		env = env->next;
+// 	}
+// }
+
 void test_list_t(t_list *env)
 {
 	while(env)
@@ -223,26 +271,42 @@ t_list *concatnate_strings(t_list *lst)
 {
 	t_list *tmp;
 	t_list *list;
+	t_list *delList;
+	t_list *parc;
 	if(!lst)
 		return NULL;
-	tmp = lst;
-	list = NULL;
-	while(tmp->next != NULL)
+	tmp = NULL;
+	delList = NULL;
+	list = lst;
+	parc = NULL;
+	while(list != NULL)
 	{
-		if(tmp->type == 0)
+		if(list->type == 1 && list->next != NULL)
 		{
-			ft_lstadd_back(&list, tmp);
-		}
-		if(tmp->type == 1)
-		{
-			tmp->next->content = ft_strjoin(tmp->content, tmp->next->content);
+			list->next->content = ft_strjoin(list->content, list->next->content);
+			delList = list;
+			list = list->next;
+			free(delList);
+			continue ;
 			
 		}
-			
-		tmp = tmp->next;
+		else
+		{
+			if(tmp == NULL)
+			{
+				tmp = list;
+				parc = tmp;
+			}
+			else
+			{
+				parc->next = list;
+				parc = parc->next;
+			}
+		}
+		list = list->next;
 	}
 	// ft_lstclear(&lst);
-	return list;
+	return tmp;
 }
 
 int main(int argc, char **argv, char **envp)
@@ -265,11 +329,13 @@ int main(int argc, char **argv, char **envp)
 	{
 		command = readline("minishell > ");
 		s = command_string(command, env);
-		// s = concatnate_strings(s);
-		// ft_lstclear(&s);
+		s = concatnate_strings(s);
+		s = lexer_list(s);
+		// test_list_t(s);
+		ft_lstclear(&s);
 		free(command);
 		// system("leaks minishell");
-		test_list_t(s);
+		
 	}
 }
 

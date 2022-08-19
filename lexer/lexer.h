@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:09:26 by akhouya           #+#    #+#             */
-/*   Updated: 2022/07/22 17:35:02 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:06:14 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@
 # define HERDOC 4
 # define OUTP 5
 # define STRING 6
-
+t_list *lexer_list(t_list *lexer);
 #endif

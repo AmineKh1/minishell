@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:00:06 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/18 18:19:10 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:05:38 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include "lexer/lexer.h"
 
 // typedef struct s_env {
 //     char *key;

@@ -6,36 +6,43 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:17:52 by akhouya           #+#    #+#             */
-/*   Updated: 2022/07/23 14:27:29 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:04:50 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdio.h>
-int main(int argc, char **argv)
-{
-    t_list *lexer;
-    t_list *add;
-    int i;
 
-    i = 1;
-    add = NULL;
-    while(i < argc)
+t_list *putToken(t_list *lexer)
+{
+    t_list *h;
+    h = lexer;
+    while(lexer)
     {
-        add = NULL;
-        if (i == 1)
-            lexer = ft_lstnew(argv[i]);
-        else
-        {
-            add = ft_lstnew(argv[i]);
-            ft_lstadd_back(&lexer, add);
-        }
-        i++;
+        if(lexer->type == - 1)
+            lexer = STRING;
+        else if (ft_memcmp(lexer->content, "|", 2) == 0)
+		    lexer->type = (int)PIPE;
+	    else if (ft_memcmp(lexer->content, ">>", 3) == 0)
+		    lexer->type = (int)OUTP;
+	    else if (ft_memcmp(lexer->content, ">", 2) == 0)
+		    lexer->type= (int)OUT;
+	    else if (ft_memcmp(lexer->content, "<", 2) == 0)
+		    lexer->type = (int)IN;
+	    else if (ft_memcmp(lexer->content, "<<", 3) == 0)
+		    lexer->type = (int)HERDOC;
+	    else
+		    lexer->type = (int)STRING;
     }
+    return h;
+}
+t_list *lexer_list(t_list *lexer)
+{
     t_list *h;
 	t_list *fre;
 	fre = NULL;
     h = lexer;
+    lexer = putToken(lexer);
     while (lexer != NULL)
     {
     if ((ft_memcmp(lexer->content, "|", 2) == 0 || ft_memcmp(lexer->content, ">>", 3) == 0 || ft_memcmp(lexer->content, ">", 2) == 0 || ft_memcmp(lexer->content, "<", 2) == 0 || ft_memcmp(lexer->content, "<<", 3) == 0) && lexer->next != NULL && lexer->next->type == STRING)
@@ -50,6 +57,7 @@ int main(int argc, char **argv)
 	lexer = lexer->next;
 	}
 	lexer = h;
+    return lexer;
 	// i need to write a function that take as argment my linked list and the node that i wanna delete then rebuild my linked list withut the node
 	// while(1);
 }
