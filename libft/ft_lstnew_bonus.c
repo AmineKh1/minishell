@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-# include "../lexer/lexer.h"
 
 t_list	*ft_lstnew(char *content)
 {
@@ -45,6 +44,31 @@ t_env	*ft_lstnew_env(char *key, char *value)
 		return (NULL);
 	lst->key = key;
 	lst->value = value;
+	lst->next = NULL;
+	return (lst);
+}
+t_files  *ft_lstnew_file(char *name, int type)
+{
+	t_files	*lst;
+
+	lst = malloc(sizeof(t_files));
+	if(!lst)
+		return NULL;
+	lst->name = ft_strdup(name);
+	lst->type = type;
+	lst->next = NULL;
+	return lst;
+}
+t_minishell *ft_lstnew_minishell(char **command, t_files *in, t_files *out)
+{
+	t_minishell	*lst;
+
+	lst = malloc(sizeof(t_minishell));
+	if(!lst)
+		return NULL;
+	lst->command = command;
+	lst->in = in;
+	lst->out = out;
 	lst->next = NULL;
 	return (lst);
 }

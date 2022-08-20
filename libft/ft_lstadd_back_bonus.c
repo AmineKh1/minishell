@@ -30,3 +30,23 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	}
 	ft_lstlast_env(*lst)->next = new;
 }
+
+void	ft_lstadd_back_files(t_files **lst, t_files *new)
+{
+	if (!*lst)
+	{
+		ft_lstadd_front_files(lst, new);
+		return ;
+	}
+	ft_lstlast_files(*lst)->next = new;
+}
+
+void	ft_lstadd_back_minishell(t_minishell **lst, t_minishell *new)
+{
+	if (!*lst)
+	{
+		ft_lstadd_front_minishell(lst, new);
+		return ;
+	}
+	ft_lstlast_minishell(*lst)->next = new;
+}

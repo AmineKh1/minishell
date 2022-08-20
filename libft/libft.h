@@ -16,7 +16,12 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
-
+# define PIPE 1
+# define IN 2
+# define OUT 3
+# define HERDOC 4
+# define OUTP 5
+# define STRING 6
 typedef struct s_list
 {
 	char			*content;
@@ -29,7 +34,17 @@ typedef struct s_env {
     char *value;
     struct s_env *next;
 }       t_env;
-
+typedef struct s_files{
+    char *name;
+    int type;
+    struct s_files *next;
+}   t_files;
+typedef struct s_minishell {
+    char **command;
+    t_files *in;
+    t_files *out;
+    struct s_minishell *next;
+} t_minishell;
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -79,4 +94,16 @@ t_env	*ft_lstnew_env(char *key, char *value);
 void	ft_lstadd_front_env(t_env **lst, t_env *new);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 t_env	*ft_lstlast_env(t_env *lst);
+t_files	*ft_lstlast_files(t_files *lst);
+void	ft_lstadd_back_files(t_files **lst, t_files *new);
+t_minishell	*ft_lstlast_minishell(t_minishell *lst);
+t_minishell *ft_lstnew_minishell(char **command, t_files *in, t_files *out);
+t_files  *ft_lstnew_file(char *name, int type);
+void	ft_lstadd_front_minishell(t_minishell **lst, t_minishell *new);
+void	ft_lstadd_back_minishell(t_minishell **lst, t_minishell *new);
+void	ft_lstadd_front_files(t_files **lst, t_files *new);
+void	ft_lstdelone_minishell(t_minishell *lst);
+void	ft_lstdelone_files(t_files *lst);
+void	ft_lstclear_minishell(t_minishell **lst);
+void	ft_lstclear_files(t_files **lst);
 #endif

@@ -29,3 +29,21 @@ t_env	*ft_lstlast_env(t_env *lst)
 		lst = lst->next;
 	return (lst);
 }
+
+t_minishell	*ft_lstlast_minishell(t_minishell *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
+t_files	*ft_lstlast_files(t_files *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}

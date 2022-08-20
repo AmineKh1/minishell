@@ -28,3 +28,36 @@ void	ft_lstclear(t_list **lst)
 	}
 	*lst = NULL;
 }
+void	ft_lstclear_files(t_files **lst)
+{
+	t_files	*l;
+	t_files	*next;
+
+	l = *lst;
+	if (!lst)
+		return ;
+	while (l != NULL)
+	{
+		next = l -> next;
+		ft_lstdelone_files(l);
+		l = next;
+	}
+	*lst = NULL;
+}
+
+void	ft_lstclear_minishell(t_minishell **lst)
+{
+	t_minishell	*l;
+	t_minishell	*next;
+
+	l = *lst;
+	if (!lst)
+		return ;
+	while (l != NULL)
+	{
+		next = l -> next;
+		ft_lstdelone_minishell(l);
+		l = next;
+	}
+	*lst = NULL;
+}

@@ -1,7 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/akhouya/Desktop/mini'
-gcc  -lreadline   -c minishell.c -o  minishell.o 
- 
-gcc  -lreadline  libft/libft.a minishell.o -o minishell
+gcc  -lreadline  libft/libft.a printf/libftprintf.a minishell.o lexer.o parser.o -o minishell
 make: Leaving directory `/Users/akhouya/Desktop/mini'
  

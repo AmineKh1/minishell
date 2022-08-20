@@ -22,3 +22,15 @@ void	ft_lstadd_front_env(t_env **lst, t_env *new)
 	new->next = *lst;
 	*lst = new;
 }
+
+void	ft_lstadd_front_files(t_files **lst, t_files *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
+void	ft_lstadd_front_minishell(t_minishell **lst, t_minishell *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
