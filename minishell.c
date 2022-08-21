@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:01:14 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/20 21:03:12 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/21 20:27:58 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *valueOf$(char *str, t_env *env)
 }
 int	is_end$(char c)
 {
-	if(c == '\'' || c == '\0' || c == ' ' || c == '$' || c == '?')
+	if(ft_isalnum(c) == 0 && c != '_')
 		return 0;
 	return 1;
 }
@@ -60,7 +60,20 @@ char *expend_add(char *str, t_env *env)
 			s1 = ft_itoa(ex);
 			ret = ft_strjoin(ret, s1);
 		}
-		else if (str[i] == '$' && is_end$(str[i + 1]) == 1)
+		else if (str[i] == '$' && ft_isdigit(str[i + 1]) == 1)
+		{
+			s1 = ft_substr(&str[j], 0, i - j);
+			i++;
+			ret = ft_strjoin(ret, s1);
+			j = i;
+			i++;
+			s1 = ft_substr(&str[j], 0, i - j);
+			j = i;
+			s1 = valueOf$(s1, env);
+			ret = ft_strjoin(ret, s1);
+			continue;
+		}
+		else if (str[i] == '$')
 		{
 			s1 = ft_substr(&str[j], 0, i - j);
 			i++;
@@ -94,7 +107,7 @@ t_list *command_string(char *command, t_env *env)
 	int j;
 	char c;
 	int incri;
-	
+	char *tm;
 	i = 0;
 	j = 0;
 	tmp = NULL;
@@ -149,20 +162,23 @@ t_list *command_string(char *command, t_env *env)
 				if (command[i] == '\0')
 				{
 					printf("minishell: syntax error need end `%c`\n", c);
-					ex = 1;
+					ex = 258;
 					ft_lstclear(&list_command);
 					return NULL;
 				}
 				str = ft_substr(&command[j], 0, i - j);
 				if (c == '"' && (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0))
 					str = expend_add(str, env);
-					
+				if (list_command != NULL && ft_memcmp(tmp->content, "<<", 3) == 0)
+					tmp->type = HERDOCX;
 				tmp = ft_lstnew(str);
+				
 				i++;
-				if (command[i] == ' ' || !command[i])
+				if (command[i] == ' ' || !command[i] || command[i] == '<' || command[i] == '|' || command[i] == '>')
 					tmp->type = -1;
 				else
 					tmp->type = 1;
+				
 				ft_lstadd_back(&list_command, tmp);
 				str = NULL;
 		}
@@ -174,9 +190,18 @@ t_list *command_string(char *command, t_env *env)
 			while (command [i] && command[i] != ' ' && command[i] != '"' && command[i] !='\'' && command[i] != '<' && command[i] != '|' && command[i] != '>')
 				i++;
 			str = ft_substr(&command[j], 0, i - j);
-		
+			// tm = ft_strdup(str);
 			if (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0)
 				str = expend_add(str, env);
+			// if (list_command != NULL && (ft_memcmp(tmp->content, ">", 2) == 0 || ft_memcmp(tmp->content, ">>", 3) == 0 || ft_memcmp(tmp->content, "<", 3) == 0) && ft_memcmp(str, "", 1) == 0)
+			// {
+			// 	printf("minishell: %s: ambiguous redirect\n", tm);
+			// 	ex = 100;
+				
+			// }
+			// printf("---%d---\n", ft_memcmp(tmp->content, ">", 2));
+				
+			// free(tm);
 			strings = ft_split(str, ' ');
 			incri = 0;
 			while(strings[incri] != 0)
@@ -364,10 +389,12 @@ int main(int argc, char **argv, char **envp)
 		// test_list_t(s);
 		list = parser_job(s);
 		ft_lstclear(&s);
+		check_herdoc(list, env);
 		test_list_minishell(list);
 		ft_lstclear_minishell(&list);
 		s = NULL;
 		list = NULL;
+		// unlink("herdoc.txt");
 		// system("leaks minishell");
 		
 	}

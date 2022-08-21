@@ -8,10 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat Aug 20 20:16:27 2022
+# Make data base, printed on Sun Aug 21 17:14:57 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -19,7 +20,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # makefile (from `Makefile', line 7)
 OBJ = ${SRC:.c=.o}
 # makefile (from `Makefile', line 5)
-SRC = minishell.c lexer.c parser.c
+SRC = minishell.c lexer.c parser.c evaluator_fd.c get_next_line.c
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -41,8 +42,7 @@ MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_CWD = /
 # environment
- 
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.RCb8juPbRv/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.cSimAa4IF1/Render
 # environment
 PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
@@ -52,7 +52,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.TzebIqqyhq/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.tzOf5zsj2B/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -66,7 +66,7 @@ HOME = /Users/akhouya
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/akhouya/Library/Application Support/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
+VSCODE_CODE_CACHE_PATH = /Users/akhouya/Library/Application Support/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
 # environment
 LOGNAME = akhouya
 # environment
@@ -108,7 +108,7 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n0000gwc0003z3/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/akhouya/Library/Application Support/Code/1.70.1-main.sock
+VSCODE_IPC_HOOK = /Users/akhouya/Library/Application Support/Code/1.70.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -118,7 +118,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000004.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -148,7 +148,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 9420
+VSCODE_PID = 11333
 # variable set hash-table stats:
 # Load=68/1024=7%, Rehash=0, Collisions=4/102=4%
 
@@ -158,9 +158,9 @@ VSCODE_PID = 9420
 
 # Directories
 
-# . (device 16777227, inode 6519287): 17 files, no impossibilities.
+# . (device 16777227, inode 6519287): 26 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 26 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -172,6 +172,15 @@ VSCODE_PID = 9420
 # 1 implicit rules, 0 (0.0%) terminal.
 
 # Files
+
+# Not a target:
+evaluator_fd.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-21 13:26:52
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 all: minishell
 #  Command-line target.
@@ -185,7 +194,7 @@ all: minishell
 # Not a target:
 lexer.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-20 20:15:46
+#  Last modified 2022-08-21 15:50:58
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -193,8 +202,7 @@ lexer.c:
 
 printf/libftprintf.a:
 #  Implicit rule search has not been done.
- 
-#  Last modified 2022-08-20 19:52:58
+#  Last modified 2022-08-21 12:50:31
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 21):
@@ -203,7 +211,16 @@ printf/libftprintf.a:
 
 libft: libft/libft.a
 #  Implicit rule search has been done.
-#  Last modified 2022-08-20 19:52:58
+#  Last modified 2022-08-21 13:10:15
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+get_next_line.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-16 20:52:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -218,16 +235,16 @@ libft: libft/libft.a
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-20 20:16:23
+#  Last modified 2022-08-21 12:50:26
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-minishell: libft libftprintf minishell.o lexer.o parser.o
+minishell: libft libftprintf minishell.o lexer.o parser.o evaluator_fd.o get_next_line.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: `'
-#  Last modified 2022-08-20 20:15:48
+#  Last modified 2022-08-21 15:51:23
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -237,13 +254,13 @@ minishell: libft libftprintf minishell.o lexer.o parser.o
 # automatic
 # * := 
 # automatic
-# + := libft libftprintf minishell.o lexer.o parser.o
+# + := libft libftprintf minishell.o lexer.o parser.o evaluator_fd.o get_next_line.o
 # automatic
 # | := 
 # automatic
 # < := libft
 # automatic
-# ^ := libft libftprintf minishell.o lexer.o parser.o
+# ^ := libft libftprintf minishell.o lexer.o parser.o evaluator_fd.o get_next_line.o
 # automatic
 # ? := 
 # variable set hash-table stats:
@@ -255,7 +272,7 @@ minishell: libft libftprintf minishell.o lexer.o parser.o
 minishell.o: minishell.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `minishell'
-#  Last modified 2022-08-20 20:11:57
+#  Last modified 2022-08-21 15:51:23
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -266,7 +283,7 @@ minishell.o: minishell.c
 
 libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-20 19:52:58
+#  Last modified 2022-08-21 12:50:31
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 18):
@@ -287,7 +304,7 @@ fclean: clean
 parser.o: parser.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `parser'
-#  Last modified 2022-08-20 19:52:58
+#  Last modified 2022-08-21 15:51:23
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -317,6 +334,19 @@ clean:
 	@${RM} ${OBJ}
 	
 
+evaluator_fd.o: evaluator_fd.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `evaluator_fd'
+#  Last modified 2022-08-21 13:27:46
+#  File has been updated.
+#  Successfully updated.
+ 
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 14):
+	${CC} ${CFLAGS} -c $< -o  $@ 
+	
+
 libftprintf: printf/libftprintf.a
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -328,7 +358,7 @@ libftprintf: printf/libftprintf.a
 # Not a target:
 minishell.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-20 20:11:55
+#  Last modified 2022-08-21 15:51:20
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -337,7 +367,19 @@ minishell.c:
 lexer.o: lexer.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `lexer'
-#  Last modified 2022-08-20 20:15:48
+#  Last modified 2022-08-21 15:51:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 14):
+	${CC} ${CFLAGS} -c $< -o  $@ 
+	
+
+get_next_line.o: get_next_line.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `get_next_line'
+#  Last modified 2022-08-21 13:12:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -349,14 +391,14 @@ lexer.o: lexer.c
 # Not a target:
 parser.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-20 19:49:04
+#  Last modified 2022-08-21 15:50:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=18/1024=2%, Rehash=0, Collisions=0/52=0%
+# Load=22/1024=2%, Rehash=0, Collisions=0/64=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -368,6 +410,6 @@ parser.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Aug 20 20:16:27 2022
+# Finished Make data base on Sun Aug 21 17:14:57 2022
 
  

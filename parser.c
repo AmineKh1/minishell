@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 12:05:35 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/20 20:32:22 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/21 18:09:54 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_minishell *parser_job(t_list *lst)
     {
         if (lst->type == STRING)
             command = stringTable_push(command, lst->content);
-        else if (lst->type == IN || lst->type == HERDOC)
+        else if (lst->type == IN || lst->type == HERDOC || lst->type == HERDOCX)
         {
             tmpF = ft_lstnew_file(lst->content, lst->type);
             ft_lstadd_back_files(&in, tmpF);

@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc  -lreadline #-fsanitize=address
 # CFLAGS = -Werror -Wextra -Wall
 
-SRC =  minishell.c lexer.c parser.c
+SRC =  minishell.c lexer.c parser.c evaluator_fd.c get_next_line.c
 
 OBJ = ${SRC:.c=.o}
 RM = rm -rf

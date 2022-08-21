@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:17:52 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/20 21:02:09 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/21 17:51:19 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_list *putToken(t_list *lexer)
     {
         if(lexer->type == - 1)
             lexer->type = STRING;
+		else if(lexer->type == 7)
+			lexer->type = HERDOCX;
         else if (ft_memcmp(lexer->content, "|", 2) == 0)
 		    lexer->type = (int)PIPE;
 	    else if (ft_memcmp(lexer->content, ">>", 3) == 0)
@@ -52,19 +54,19 @@ t_list *lexerList(t_list *lexer)
 		}
     while (lexer != NULL)
     {
-		if ((lexer->type == OUTP || lexer->type == OUT || lexer->type == IN || lexer->type == HERDOC))
+		if ((lexer->type == OUTP || lexer->type == OUT || lexer->type == IN || lexer->type == HERDOC || lexer->type == HERDOCX))
 		{
 			if (lexer->next == NULL)
 			{
 				printf("minishell: syntax error near unexpected token`newline'\n");
-				ex = 1;
+				ex = 258;
 				ft_lstclear(&h);
 				return NULL;
 			}
 			else if (lexer->next->type != 6)
 			{
 				printf("minishell: syntax error near unexpected token`%s'\n", lexer->next->content);
-				ex = 1;
+				ex = 258;
 				ft_lstclear(&h);
 				return NULL;
 			}
