@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator_fd.c                                     :+:      :+:    :+:   */
+/*   handle_herdoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:01:30 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/21 19:29:45 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/22 11:16:10 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 char	*ft_strjoin_heredoc(char *s1, char *s2)
 {
@@ -81,16 +81,12 @@ void	parcours_file(t_files *lst, t_env *env)
 		lst = lst->next;
 	}
 }
-t_mnshellPa *check_herdoc(t_minishell *lst, t_env *env)
+void	check_herdoc(t_minishell *lst, t_env *env)
 {
-    t_mnshellPa *list;
-
-	
-    list = NULL;
     while(lst)
     {
 		parcours_file(lst->in, env);
         lst = lst->next;
     }
-	return list;
+	return ;
 }

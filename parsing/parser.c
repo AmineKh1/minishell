@@ -6,11 +6,11 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 12:05:35 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/21 18:09:54 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/22 11:16:35 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 char **stringTable_push(char **str, char *s)
 {

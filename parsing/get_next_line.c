@@ -6,11 +6,11 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 19:50:28 by akhouya           #+#    #+#             */
-/*   Updated: 2022/07/22 15:04:35 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/22 11:15:58 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include"parsing.h"
 
 char	*ft_strjoin_free(char *s, char c)
 {

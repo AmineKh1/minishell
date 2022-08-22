@@ -6,11 +6,11 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:17:52 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/21 17:51:19 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/22 11:16:30 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 t_list *putToken(t_list *lexer)
 {
@@ -84,13 +84,8 @@ t_list *lexerList(t_list *lexer)
 				ft_lstclear(&h);
 				return NULL;
 		}
-		// printf("%s\n", lexer->content);
-		// printf("%d\n", lexer->type);
 		lexer = lexer->next;
 	}
 	lexer = h;
-	// ex = 0;
     return lexer;
-	// i need to write a function that take as argment my linked list and the node that i wanna delete then rebuild my linked list withut the node
-	// while(1);
 }
