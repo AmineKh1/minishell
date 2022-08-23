@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 09:26:32 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/22 11:16:16 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/23 10:16:03 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ t_list *command_string(char *command, t_env *env)
 {
 	t_list *tmp;
 	t_list *list_command;
-	char **s;
 	char *str;
 	char **strings;
 	int i;
 	int j;
 	char c;
 	int incri;
-	char *tm;
 	i = 0;
 	j = 0;
 	tmp = NULL;

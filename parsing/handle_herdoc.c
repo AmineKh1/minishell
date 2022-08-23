@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:01:30 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/22 11:16:10 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/23 11:45:00 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,31 @@ void	herdoc(t_files *lst, t_env *env)
 	char	*s;
 	char	*herdoc;
 	char *str;
-
+	char *newl;
+	
 	str = ft_strdup("");
-	write(0, "> ", 2);
-	s = get_next_line(0);
-	herdoc = ft_strjoin_heredoc(lst->name, "\n");
-	while (ft_strncmp(herdoc, s, ft_strlen(herdoc)) != 0)
+	s = readline("> ");	
+	if(s != NULL)
 	{
-		write(0, "> ", 2);
-		str = ft_strjoin(str, s);
-		s = get_next_line(0);
-	}
-	if (ft_strncmp("", s, 1) == 0)
-	{
-		free(s);
+		
+		newl = ft_strdup("\n");
+		s = ft_strjoin(s, newl);
+		herdoc = ft_strjoin_heredoc(lst->name, "\n");
+		while (ft_strncmp(herdoc, s, ft_strlen(herdoc)) != 0)
+		{
+			// write(0, "> ", 2);
+			str = ft_strjoin(str, s);
+			s = readline("> ");
+			if(s == NULL)
+				break ;
+			newl = ft_strdup("\n");
+			s = ft_strjoin(s, newl);
+		}
+		if (s != NULL)
+			free(s);
 		free(herdoc);
-		free(lst->name);
-		lst->name = str;
-		if(lst->type == HERDOC)
-			lst->name = expend_add(lst->name, env);
-		return ;
+		
 	}
-	free(s);
-	free(herdoc);
 	free(lst->name);
 	lst->name = str;
 	if(lst->type == HERDOC)

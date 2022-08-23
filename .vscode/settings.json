@@ -4,7 +4,9 @@
         "readline.h": "c",
         "libft.h": "c",
         "minishell.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "parsing.h": "c",
+        "ft_printf.h": "c"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
