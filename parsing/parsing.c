@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 10:34:53 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/22 13:01:52 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:03:41 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_minishell    *parsing(char *command, t_env *env)
 		list = parser_job(s);
 		ft_lstclear(&s);
 		check_herdoc(list, env);
-		test_list_minishell(list);
-		ft_lstclear_minishell(&list);
+		// test_list_minishell(list);
+		// ft_lstclear_minishell(&list);
 		s = NULL;
 		list = NULL;
         return list;

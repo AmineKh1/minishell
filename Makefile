@@ -9,8 +9,8 @@ OBJ = ${SRC:.c=.o}
 RM = rm -rf
 # add here your liberary in case ur work with it
 all: ${NAME}
-${NAME}: libft libftprintf ${OBJ}
-	@${CC} -lreadline libft/libft.a printf/libftprintf.a ${OBJ} -o ${NAME}
+${NAME}: libft ${OBJ}
+	@${CC} -lreadline libft/libft.a ${OBJ} -o ${NAME}
 
 %.o: %.c
 	@${CC} ${CFLAGS} -c $< -o  $@ 
@@ -19,22 +19,22 @@ ${NAME}: libft libftprintf ${OBJ}
 # ----------------
 libft: libft/libft.a
 
-libftprintf: printf/libftprintf.a
+# libftprintf: printf/libftprintf.a
 
 libft/libft.a:
 	@${MAKE} -C libft
 	@${MAKE} -C libft bonus
 
-printf/libftprintf.a:
-	@${MAKE} -C printf
+# printf/libftprintf.a:
+# 	@${MAKE} -C printf
 # -----------------
 clean:
 	@${MAKE} -C libft clean
-	@${MAKE} -C printf clean
+# @${MAKE} -C printf clean
 	@${RM} ${OBJ}
 
 fclean: clean
 	@${MAKE} -C libft fclean
-	@${MAKE} -C printf fclean
+# @${MAKE} -C printf fclean
 	@${RM} ${OBJ}
 re : clean all

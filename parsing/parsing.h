@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:10:48 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/22 13:07:05 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:01:47 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 #include "../libft/libft.h"
-#include "../printf/ft_printf.h"
+// #include "../printf/ft_printf.h"
 # define PIPE 1
 # define IN 2
 # define OUT 3

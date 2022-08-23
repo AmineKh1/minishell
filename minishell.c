@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:01:14 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/23 10:15:44 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:05:22 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int main(int argc, char **argv, char **envp)
 		list = parsing(command, env);
 		if (list == NULL)
 			continue ;
-		// system("leaks minishell");
-		
-		
+		// test_list_minishell(list);
+		ft_lstclear_minishell(&list);
 	}
 }
 
