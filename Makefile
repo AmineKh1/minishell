@@ -10,7 +10,7 @@ SRC =  minishell.c parsing/lexer.c parsing/parser.c parsing/handle_herdoc.c pars
 		execution/child_env_var.c execution/exec_builtins.c execution/functions.c execution/in_out_files.c execution/pipes.c execution/lonely.c \
 		execution/norm.c execution/builtins_func.c
 
-RD_LINE = -lreadline -L /goinfre/aabouzid/.brew/opt/readline/lib -I /goinfre/aabouzid/.brew/opt/readline/include
+RD_LINE = -lreadline -L /goinfre/akhouya/.brew/opt/readline/lib -I /goinfre/akhouya/.brew/opt/readline/include
 
 OBJ = ${SRC:.c=.o}
 
@@ -22,7 +22,7 @@ ${NAME}: libft ${OBJ}
 	@${CC} ${CFLAGS} ${RD_LINE} libft/libft.a ${OBJ} -o ${NAME}
 
 %.o: %.c
-	@${CC} -I /goinfre/aabouzid/.brew/opt/readline/include -c $< -o  $@ 
+	@${CC} -I /goinfre/akhouya/.brew/opt/readline/include -c $< -o  $@ 
 
 # this rules to Make libft.a 
 # ----------------
