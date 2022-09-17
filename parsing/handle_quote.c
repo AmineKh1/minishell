@@ -3,168 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 09:26:32 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/23 10:16:03 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/09/07 22:55:23 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_list *command_string(char *command, t_env *env)
+void	node_tokens(t_quote *q, char *cmd)
 {
-	t_list *tmp;
-	t_list *list_command;
-	char *str;
-	char **strings;
-	int i;
-	int j;
-	char c;
-	int incri;
-	i = 0;
-	j = 0;
-	tmp = NULL;
-	list_command = NULL;
-	strings = NULL;
-	if(!command)
-		return NULL;
-	while(command[i])
+	if (cmd[q->i] == '|')
 	{
-		if (command[i] == '|')
-		{
-			j = i;
-			i++;
-			str = ft_substr(&command[j], 0, i - j);
-			tmp = ft_lstnew(str);
-			tmp->type = 0;
-			ft_lstadd_back(&list_command, tmp);
-			str = NULL;
-		}
-		else if (command[i] == '<')
-		{
-			j = i;
-			i++;
-			if (command[i] == '<')
-				i++;
-			str = ft_substr(&command[j], 0, i - j);
-			tmp = ft_lstnew(str);
-			tmp->type = 0;
-			ft_lstadd_back(&list_command, tmp);
-			str = NULL;
-		}
-		else if (command[i] == '>')
-		{
-			j = i;
-			i++;
-			if (command[i] == '>')
-				i++;
-			str = ft_substr(&command[j], 0, i - j);
-			tmp = ft_lstnew(str);
-			tmp->type = 0;
-			ft_lstadd_back(&list_command, tmp);
-			str = NULL;
-		}
-		else if (command[i] == '\'' || command[i] == '"')
-		{
-			j = i + 1;
-			c = command[i];
-			i++;
-			while (command[i] && command[i] != c)
-				i++;
-			
-				if (command[i] == '\0')
-				{
-					printf("minishell: syntax error need end `%c`\n", c);
-					ex = 258;
-					ft_lstclear(&list_command);
-					return NULL;
-				}
-				str = ft_substr(&command[j], 0, i - j);
-				if (c == '"' && (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0))
-					str = expend_add(str, env);
-				if (list_command != NULL && ft_memcmp(tmp->content, "<<", 3) == 0)
-					tmp->type = HERDOCX;
-				tmp = ft_lstnew(str);
-				
-				i++;
-				if (command[i] == ' ' || !command[i] || command[i] == '<' || command[i] == '|' || command[i] == '>')
-					tmp->type = -1;
-				else
-					tmp->type = 1;
-				
-				ft_lstadd_back(&list_command, tmp);
-				str = NULL;
-		}
-		else
-		{
-			if (command[i] == ' ')
-				i++;
-			j = i;
-			while (command [i] && command[i] != ' ' && command[i] != '"' && command[i] !='\'' && command[i] != '<' && command[i] != '|' && command[i] != '>')
-				i++;
-			str = ft_substr(&command[j], 0, i - j);
-			if (list_command == NULL || ft_memcmp(tmp->content, "<<", 3) != 0)
-				str = expend_add(str, env);
-			strings = ft_split(str, ' ');
-			incri = 0;
-			while(strings[incri] != 0)
-			{
-				tmp = ft_lstnew(strings[incri]);
-				if ((command[i] == '\'' || command[i] == '"') && strings[incri + 1] == 0)
-					tmp->type = 1;
-				else
-					tmp->type = 0;
-				ft_lstadd_back(&list_command, tmp);
-				incri++;
-			}
-			free(strings);
-			free(str);
-			str = NULL;
-			
-		}
+		g_glb.ex = 0;
+		g_glb.er = 0;
 	}
-	ex = 0;
-	return list_command;
+	q->j = q->i;
+	q->i++;
+	if (cmd[q->i] != '|' && cmd[q->i] == cmd[q->i - 1])
+		q->i++;
+	q->str = ft_substr(&cmd[q->j], 0, q->i - q->j);
+	q->tmp = ft_lstnew(q->str);
+	q->tmp->type = 0;
+	ft_lstadd_back(&q->list_cmd, q->tmp);
+	q->str = NULL;
 }
 
-t_list *concatnate_strings(t_list *lst)
+int	handle_er_expend(char *cmd, t_quote *q, t_env *env)
 {
-	t_list *tmp;
-	t_list *list;
-	t_list *delList;
-	t_list *parc;
-	if(!lst)
-		return NULL;
-	tmp = NULL;
-	delList = NULL;
-	list = lst;
-	parc = NULL;
-	while(list != NULL)
+	if (cmd[q->i] == '\0')
 	{
-		if(list->type == 1 && list->next != NULL)
+		write(2, "minishell: syntax error need end `", 34);
+		write(2, &q->c, 1);
+		write(2, "`\n", 2);
+		g_glb.ex = 258;
+		ft_lstclear(&q->list_cmd);
+		return (1);
+	}
+	q->str = ft_substr(&cmd[q->j], 0, q->i - q->j);
+	if (q->c == '"' && (q->list_cmd == NULL
+			|| ft_memcmp(q->tmp->content, "<<", 3) != 0))
+		q->str = expend_add(q->str, env);
+	if (q->list_cmd != NULL && ft_memcmp(q->tmp->content, "<<", 3) == 0)
+		q->tmp->type = HERDOCX;
+	q->tmp = ft_lstnew(q->str);
+	q->i++;
+	return (0);
+}
+
+int	quote_conditions(char *cmd, t_quote *q, t_env *env)
+{
+	q->j = q->i + 1;
+	q->c = cmd[q->i];
+	q->i++;
+	while (cmd[q->i] && cmd[q->i] != q->c)
+		q->i++;
+	if (handle_er_expend(cmd, q, env) == 1)
+		return (1);
+	if (is_space(cmd[q->i]) == 0 || !cmd[q->i] || cmd[q->i] == '<'
+		|| cmd[q->i] == '|' || cmd[q->i] == '>')
+		q->tmp->type = -1;
+	else
+		q->tmp->type = 1;
+	ft_lstadd_back(&q->list_cmd, q->tmp);
+	q->str = NULL;
+	return (0);
+}
+
+void	normal_condition(char *cmd, t_quote *q, t_env *env)
+{
+	if (is_space(cmd[q->i]) == 0)
+		q->i++;
+	q->j = q->i;
+	while (cmd [q->i] && is_space(cmd[q->i]) != 0 && cmd[q->i] != '"'
+		&& cmd[q->i] != '\'' && cmd[q->i] != '<'
+		&& cmd[q->i] != '|' && cmd[q->i] != '>')
+		q->i++;
+	q->str = ft_substr(&cmd[q->j], 0, q->i - q->j);
+	if (q->list_cmd == NULL || ft_memcmp(q->tmp->content, "<<", 3) != 0)
+		q->str = expend_add(q->str, env);
+	q->ss = ft_split(q->str, ' ');
+	q->icr = 0;
+	while (q->ss[q->icr] != 0)
+	{
+		q->tmp = ft_lstnew(q->ss[q->icr]);
+		if ((cmd[q->i] == '\'' || cmd[q->i] == '"') && q->ss[q->icr + 1] == 0)
+			q->tmp->type = 1;
+		else
+			q->tmp->type = 0;
+		ft_lstadd_back(&q->list_cmd, q->tmp);
+		q->icr++;
+	}
+	free(q->ss);
+	free(q->str);
+	q->str = NULL;
+}
+
+t_list	*command_string(char *cmd, t_env *env)
+{
+	t_quote	q;
+
+	init_value(&q);
+	if (!cmd)
+		return (NULL);
+	while (cmd[q.i])
+	{
+		if (cmd[q.i] == '<' || cmd[q.i] == '|' || cmd[q.i] == '>')
+			node_tokens(&q, cmd);
+		else if (cmd[q.i] == '\'' || cmd[q.i] == '"')
 		{
-			list->next->content = ft_strjoin(list->content, list->next->content);
-			delList = list;
-			list = list->next;
-			free(delList);
-			continue ;
-			
+			if (quote_conditions(cmd, &q, env) == 1)
+				return (NULL);
 		}
 		else
-		{
-			if(tmp == NULL)
-			{
-				tmp = list;
-				parc = tmp;
-			}
-			else
-			{
-				parc->next = list;
-				parc = parc->next;
-			}
-		}
-		list = list->next;
+			normal_condition(cmd, &q, env);
 	}
-	return tmp;
+	return (q.list_cmd);
 }

@@ -1,40 +1,49 @@
 NAME = minishell
-CC = gcc   #-fsanitize=address
+CC = gcc   
 CFLAGS = -Werror -Wextra -Wall
 
-## put your .c files
-SRC =  minishell.c parsing/lexer.c parsing/parser.c parsing/handle_herdoc.c parsing/get_next_line.c parsing/handle_expender.c parsing/handle_quote.c parsing/envp_conv_l.c parsing/test.c parsing/parsing.c
+
+SRC =  minishell.c parsing/lexer.c parsing/parser.c parsing/handle_herdoc.c parsing/handle_expender.c parsing/handle_quote.c \
+		parsing/envp_conv_l.c parsing/test.c parsing/parsing.c  parsing/concatinate_node.c parsing/expend_condition.c parsing/child_herdoc.c \
+		execution/execution.c execution/builtins_functions.c execution/t_env.c execution/t_env_2.c execution/ft_cd.c execution/ft_echo.c \
+		execution/ft_env.c execution/ft_exit.c execution/ft_export.c execution/ft_pwd.c execution/ft_unset.c execution/export_functions.c \
+		execution/child_env_var.c execution/exec_builtins.c execution/functions.c execution/in_out_files.c execution/pipes.c execution/lonely.c \
+		execution/norm.c execution/builtins_func.c
+
+RD_LINE = -lreadline -L /goinfre/aabouzid/.brew/opt/readline/lib -I /goinfre/aabouzid/.brew/opt/readline/include
 
 OBJ = ${SRC:.c=.o}
+
 RM = rm -rf
-# add here your liberary in case ur work with it
+
 all: ${NAME}
+
 ${NAME}: libft ${OBJ}
-	@${CC} -lreadline libft/libft.a ${OBJ} -o ${NAME}
+	@${CC} ${CFLAGS} ${RD_LINE} libft/libft.a ${OBJ} -o ${NAME}
 
 %.o: %.c
-	@${CC} ${CFLAGS} -c $< -o  $@ 
+	@${CC} -I /goinfre/aabouzid/.brew/opt/readline/include -c $< -o  $@ 
 
-# this rules to Make libft.a and libftprintf.a
+# this rules to Make libft.a 
 # ----------------
 libft: libft/libft.a
 
-# libftprintf: printf/libftprintf.a
+
 
 libft/libft.a:
 	@${MAKE} -C libft
 	@${MAKE} -C libft bonus
 
-# printf/libftprintf.a:
-# 	@${MAKE} -C printf
+
 # -----------------
 clean:
 	@${MAKE} -C libft clean
-# @${MAKE} -C printf clean
+
 	@${RM} ${OBJ}
 
 fclean: clean
 	@${MAKE} -C libft fclean
-# @${MAKE} -C printf fclean
+
 	@${RM} ${OBJ}
+	@${RM} minishell
 re : clean all

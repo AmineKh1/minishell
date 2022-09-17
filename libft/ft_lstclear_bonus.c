@@ -28,6 +28,7 @@ void	ft_lstclear(t_list **lst)
 	}
 	*lst = NULL;
 }
+
 void	ft_lstclear_files(t_files **lst)
 {
 	t_files	*l;
@@ -55,7 +56,7 @@ void	ft_lstclear_minishell(t_minishell **lst)
 		return ;
 	while (l != NULL)
 	{
-		next = l -> next;
+		next = l->next;
 		ft_lstdelone_minishell(l);
 		l = next;
 	}

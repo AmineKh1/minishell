@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_herdoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:01:30 by akhouya           #+#    #+#             */
-/*   Updated: 2022/08/23 11:45:00 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/09/11 14:42:07 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../minishell.h"
 
 char	*ft_strjoin_heredoc(char *s1, char *s2)
 {
@@ -34,61 +34,91 @@ char	*ft_strjoin_heredoc(char *s1, char *s2)
 	return (&str[0]);
 }
 
+static void	open_herdoc(char *s, char **str, t_files *lst)
+{
+	char	*herdoc;
+
+	s = ft_strjoin_heredoc(s, "\n");
+	herdoc = ft_strjoin_heredoc(lst->name, "\n");
+	while (ft_strncmp(herdoc, s, ft_strlen(herdoc)) != 0)
+	{
+		*str = ft_strjoin(*str, s);
+		s = readline("> ");
+		if (s == NULL)
+		{
+			free(*str);
+			*str = NULL;
+			break ;
+		}
+		s = ft_strjoin_heredoc(s, "\n");
+	}
+	if (s != NULL)
+		free(s);
+	free(herdoc);
+}
+
 void	herdoc(t_files *lst, t_env *env)
 {
 	char	*s;
-	char	*herdoc;
-	char *str;
-	char *newl;
-	
+	char	*str;
+
 	str = ft_strdup("");
-	s = readline("> ");	
-	if(s != NULL)
+	s = readline("> ");
+	if (s == NULL)
 	{
-		
-		newl = ft_strdup("\n");
-		s = ft_strjoin(s, newl);
-		herdoc = ft_strjoin_heredoc(lst->name, "\n");
-		while (ft_strncmp(herdoc, s, ft_strlen(herdoc)) != 0)
-		{
-			// write(0, "> ", 2);
-			str = ft_strjoin(str, s);
-			s = readline("> ");
-			if(s == NULL)
-				break ;
-			newl = ft_strdup("\n");
-			s = ft_strjoin(s, newl);
-		}
-		if (s != NULL)
-			free(s);
-		free(herdoc);
-		
+		free(str);
+		str = NULL;
 	}
+	else
+		open_herdoc(s, &str, lst);
 	free(lst->name);
 	lst->name = str;
-	if(lst->type == HERDOC)
+	if (lst->type == HERDOC)
 		lst->name = expend_add(lst->name, env);
-	return ;
 }
 
-void	parcours_file(t_files *lst, t_env *env)
+char	*add_char(char *tmp, char c)
 {
-	while(lst)
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = malloc(sizeof(char) * (ft_strlen(tmp) + 2));
+	while (tmp[i])
 	{
-		if(lst->type == HERDOC || lst->type == HERDOCX)
-		{
-			herdoc(lst, env);
-			lst->type = HERDOC;
-		}
-		lst = lst->next;
+		new[i] = tmp[i];
+		i++;
 	}
+	new[i] = c;
+	i = i + 1;
+	new[i] = 0;
+	return (new);
 }
-void	check_herdoc(t_minishell *lst, t_env *env)
+
+char	*read_fd(int fd)
 {
-    while(lst)
-    {
-		parcours_file(lst->in, env);
-        lst = lst->next;
-    }
-	return ;
+	char	c;
+	int		r;
+	char	*str;
+	char	*tmp;
+
+	str = ft_strdup("");
+	r = read(fd, &c, 1);
+	if (r)
+	{
+		while (r)
+		{
+			tmp = str;
+			str = add_char(tmp, c);
+			if (tmp)
+				free(tmp);
+			r = read(fd, &c, 1);
+		}
+	}
+	else
+	{
+		free(str);
+		str = NULL;
+	}
+	return (str);
 }

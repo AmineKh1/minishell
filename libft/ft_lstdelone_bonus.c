@@ -32,7 +32,7 @@ void	ft_lstdelone_minishell(t_minishell *lst)
 {
 	if (!lst)
 		return ;
-	if(lst->command != NULL)
+	if (lst->command != NULL)
 	{
 		frealltab(lst->command);
 		free(lst->command);

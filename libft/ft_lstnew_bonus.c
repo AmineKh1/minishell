@@ -25,7 +25,7 @@ t_list	*ft_lstnew(char *content)
 	else if (ft_memcmp(content, ">>", 3) == 0)
 		lst->type = (int)OUTP;
 	else if (ft_memcmp(content, ">", 2) == 0)
-		lst->type= (int)OUT;
+		lst->type = (int)OUT;
 	else if (ft_memcmp(content, "<", 2) == 0)
 		lst->type = (int)IN;
 	else if (ft_memcmp(content, "<<", 3) == 0)
@@ -35,6 +35,7 @@ t_list	*ft_lstnew(char *content)
 	lst->next = NULL;
 	return (lst);
 }
+
 t_env	*ft_lstnew_env(char *key, char *value)
 {
 	t_env	*lst;
@@ -47,25 +48,27 @@ t_env	*ft_lstnew_env(char *key, char *value)
 	lst->next = NULL;
 	return (lst);
 }
-t_files  *ft_lstnew_file(char *name, int type)
+
+t_files	*ft_lstnew_file(char *name, int type)
 {
 	t_files	*lst;
 
 	lst = malloc(sizeof(t_files));
-	if(!lst)
-		return NULL;
+	if (!lst)
+		return (NULL);
 	lst->name = ft_strdup(name);
 	lst->type = type;
 	lst->next = NULL;
-	return lst;
+	return (lst);
 }
-t_minishell *ft_lstnew_minishell(char **command, t_files *in, t_files *out)
+
+t_minishell	*ft_lstnew_minishell(char **command, t_files *in, t_files *out)
 {
 	t_minishell	*lst;
 
 	lst = malloc(sizeof(t_minishell));
-	if(!lst)
-		return NULL;
+	if (!lst)
+		return (NULL);
 	lst->command = command;
 	lst->in = in;
 	lst->out = out;
