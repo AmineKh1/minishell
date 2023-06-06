@@ -153,6 +153,6 @@ minishell> ls -l
 ### Makefile Targets
 - `make`: Build the Minishell executable.
 - `make clean`: Clean the build artifacts.
- -`make fclean`: Clean the build artifacts and remove the executable.
+- `make fclean`: Clean the build artifacts and remove the executable.
 
 
