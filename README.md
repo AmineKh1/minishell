@@ -17,7 +17,7 @@ Minishell is a simplified version of a** shell** or **command-line** interface i
   - `<<` reads input until a line containing the delimiter is seen.
   - `>>` redirects output in append mode.
 - Pipes `|` for command pipelines.
-- Handling of environment variables (**$** followed by a sequence of characters) for expansion.
+- Handling of environment variables (**`$`** followed by a sequence of characters) for expansion.
 - Handling of `$?` for expanding the exit status of the most recently executed foreground pipeline.
 - Handling of **ctrl-C**, **ctrl-D**, and **"ctrl-\"** signals.
 - Interactive mode behavior:
@@ -37,9 +37,9 @@ Minishell is a simplified version of a** shell** or **command-line** interface i
 
 The lexer component of Minishell is responsible for tokenizing user input. It takes the raw input string and breaks it down into individual tokens, considering spaces, quotes, and special characters. The lexer performs the following tasks:
 
-- Handles single quotes **'**, double quotes **"** to identify quoted sequences.
+- Handles single quotes **`'`**, double quotes **`"`** to identify quoted sequences.
 - Identifies and separates commands, arguments, input/output redirection symbols, pipes, and other special characters.
-- throw an error if unnecessary characters such as backslashes **"\"** or semicolons **;** that are not required by the project's specifications.
+- throw an error if unnecessary characters such as backslashes **`\`** or semicolons **;** that are not required by the project's specifications.
 In the lexer, various tokens are defined using #define statements to assign meaningful names to their corresponding integer values. These tokens provide a way to identify different elements during the lexical analysis phase. Here is an example of token definitions:
 ```c
 # define PIPE 1
