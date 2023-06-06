@@ -51,7 +51,7 @@ In the lexer, various tokens are defined using #define statements to assign mean
 # define STRING 6
 ```
 These tokens can be used to classify and handle different parts of the input string during the lexical analysis process. For example, the token PIPE can represent a pipe symbol, `IN` can represent an input redirection symbol, `OUT` can represent an output redirection symbol, and so on. \
-- NB: `HERDOCX` to handle export inside herdoc. 
+- NB: `HERDOCX` to handle export inside herdoc. \
 By using these tokens, the lexer effectively breaks down the input string into meaningful units, which are later used for parsing and executing the commands in the Minishell project.
 
 ### Parser
