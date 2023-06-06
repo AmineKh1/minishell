@@ -12,49 +12,51 @@ Minishell is a simplified version of a shell or command-line interface implement
 - Handling of single quotes ('), preventing interpretation of metacharacters in the quoted sequence.
 - Handling of double quotes (") except for $ (dollar sign) metacharacter.
 - Redirections:
-  - < redirects input.
-  - > redirects output.
-  - << reads input until a line containing the delimiter is seen.
-  - >> redirects output in append mode.
-- Pipes (|) for command pipelines.
-- Handling of environment variables ($ followed by a sequence of characters) for expansion.
-- Handling of $? for expanding the exit status of the most recently executed foreground pipeline.
-- Handling of ctrl-C, ctrl-D, and ctrl-\ signals.
+  - `<` redirects input.
+  - `>` redirects output.
+  - `<<` reads input until a line containing the delimiter is seen.
+  - `>>` redirects output in append mode.
+- Pipes `|` for command pipelines.
+- Handling of environment variables (`$` followed by a sequence of characters) for expansion.
+- Handling of `$?` for expanding the exit status of the most recently executed foreground pipeline.
+- Handling of `ctrl-C`, `ctrl-D`, and `ctrl-\` signals.
 - Interactive mode behavior:
-  - ctrl-C displays a new prompt on a new line.
-  - ctrl-D exits the shell.
-  - ctrl-\ does nothing.
+  - `ctrl-C` displays a new prompt on a new line.
+  - `ctrl-D` exits the shell.
+  - `ctrl-\` does nothing.
 - Built-in commands:
-  - echo with option -n.
-  - cd with only a relative or absolute path.
-  - pwd with no options.
-  - export with no options.
-  - unset with no options.
-  - env with no options or arguments.
-  - exit with no options.
+  - `echo` with option `-n`.
+  - `cd` with only a relative or absolute path.
+  - `pwd` with no options.
+  - `export` with no options.
+  - `unset` with no options.
+  - `env` with no options or arguments.
+  - `exit` with no options.
 
 ### Lexer
 
 The lexer component of Minishell is responsible for tokenizing user input. It takes the raw input string and breaks it down into individual tokens, considering spaces, quotes, and special characters. The lexer performs the following tasks:
 
-- Handles single quotes ('), double quotes (") to identify quoted sequences.
+- Handles single quotes `'`, double quotes `"` to identify quoted sequences.
 - Identifies and separates commands, arguments, input/output redirection symbols, pipes, and other special characters.
-- throw an error if unnecessary characters such as backslashes (\) or semicolons (;) that are not required by the project's specifications.
+- throw an error if unnecessary characters such as backslashes `\` or semicolons `;` that are not required by the project's specifications.
 In the lexer, various tokens are defined using #define statements to assign meaningful names to their corresponding integer values. These tokens provide a way to identify different elements during the lexical analysis phase. Here is an example of token definitions:
 ```c
-#define PIPE 1
-#define IN 2
-#define OUT 3
-#define HERDOC 4
-#define OUTP 5
-#define STRING 6
+# define PIPE 1
+# define IN 2
+# define OUT 3
+# define HERDOC 4
+# define HERDOCX 7
+# define OUTP 5
+# define STRING 6
 ```
-These tokens can be used to classify and handle different parts of the input string during the lexical analysis process. For example, the token PIPE can represent a pipe symbol, IN can represent an input redirection symbol, OUT can represent an output redirection symbol, and so on.
+These tokens can be used to classify and handle different parts of the input string during the lexical analysis process. For example, the token PIPE can represent a pipe symbol, `IN` can represent an input redirection symbol, `OUT` can represent an output redirection symbol, and so on. \
+- NB: `HERDOCX` to handle export inside herdoc. 
 By using these tokens, the lexer effectively breaks down the input string into meaningful units, which are later used for parsing and executing the commands in the Minishell project.
 
 ### Parser
 
-The parser component of Minishell takes the tokens produced by the lexer and performs syntactic analysis to build a parse tree or an abstract syntax tree (AST). It ensures that the input adheres to the grammar rules of the shell. The parser performs the following tasks:
+The parser component of Minishell takes the tokens produced by the lexer and performs syntactic analysis to build a parse Linked List. It ensures that the input adheres to the grammar rules of the shell and the requirement in the project. The parser performs the following tasks:
 
 - Validates the order and structure of the tokens to ensure correct command syntax.
 - Handles command pipelines by grouping commands and setting up pipe connections between them.
