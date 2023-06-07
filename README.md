@@ -17,13 +17,13 @@ Minishell is a simplified version of a** shell** or **command-line** interface i
   - `<<` reads input until a line containing the delimiter is seen.
   - `>>` redirects output in append mode.
 - Pipes `|` for command pipelines.
-- Handling of environment variables (**`$`** followed by a sequence of characters) for expansion.
+- Handling of environment variables (`$` followed by a sequence of characters) for expansion.
 - Handling of `$?` for expanding the exit status of the most recently executed foreground pipeline.
-- Handling of **ctrl-C**, **ctrl-D**, and **"ctrl-\"** signals.
+- Handling of **ctrl-C**, **ctrl-D**, and **"ctrl-\\"** signals.
 - Interactive mode behavior:
   - **ctrl-C**, displays a new prompt on a new line.
   - **ctrl-D** exits the shell.
-  - **"ctrl-\"** does nothing.
+  - **"ctrl-\\"** does nothing.
 - Built-in commands:
   - `echo` with option `-n`.
   - `cd` with only a relative or absolute path.
@@ -39,8 +39,20 @@ The lexer component of Minishell is responsible for tokenizing user input. It ta
 
 - Handles single quotes **`'`**, double quotes **`"`** to identify quoted sequences.
 - Identifies and separates commands, arguments, input/output redirection symbols, pipes, and other special characters.
-- throw an error if unnecessary characters such as backslashes **`\`** or semicolons **;** that are not required by the project's specifications.
-In the lexer, various tokens are defined using #define statements to assign meaningful names to their corresponding integer values. These tokens provide a way to identify different elements during the lexical analysis phase. Here is an example of token definitions:
+- throw an error if unnecessary characters such as backslashes **`\`** or semicolons **;** that are not required by the project's specifications. <br/>
+
+
+There is various tokens are defined using `#define` statements to assign meaningful names to their corresponding integer values. These tokens provide a way to identify different elements during the lexical analysis phase:
+
+- **PIPE (1)**: Represents a pipe symbol ('|') indicating a command pipeline.
+- **IN (2)**: Represents input redirection symbol ('<') indicating input redirection from a file.
+- **OUT (3)**: Represents output redirection symbol ('>') indicating output redirection to a file (overwrite mode).
+- **HERDOC (4)**: Represents the heredoc symbol ('<<') indicating input redirection from a here-document.
+- **OUTP (5)**: Represents output redirection symbol ('>>') indicating output redirection to a file (append mode).
+- **STRING (6)**: Represents a regular string token.
+- **HERDOCX (7)** same as herdoc but to handle expend inside herdoc.
+
+**The Master token**
 ```c
 # define PIPE 1
 # define IN 2
@@ -50,8 +62,59 @@ In the lexer, various tokens are defined using #define statements to assign mean
 # define OUTP 5
 # define STRING 6
 ```
-These tokens can be used to classify and handle different parts of the input string during the lexical analysis process. For example, the token PIPE can represent a pipe symbol, **IN** can represent an input redirection symbol, **OUT** can represent an output redirection symbol, and so on. \
-> NB: **HERDOCX** to handle export inside herdoc.<br/>
+```c
+t_minishell	*parsing(char *command, t_env *env)
+{
+	t_list		*s;
+	t_minishell	*list;
+
+	s = command_string(command, env);
+	free(command);
+	if (!s)
+		return (NULL);
+	s = concatnate_strings(s);
+	s = lexer_list(s);
+	if (!s)
+		return (NULL);
+	list = parser_job(s);
+	ft_lstclear(&s);
+	if (!check_herdoc(list, env))
+	{
+		ft_lstclear_minishell(&list);
+		return (NULL);
+	}
+	return (list);
+}
+```
+#### Let's break down the steps of lexer involved:
+1. The **command_string** function is called, passing the command string and the environment context. This function converts the command string into a linked list called **s**, with each node containing a string and a token value. This token value have 3 values **1, 0 and -1**.
+
+```c
+s = command_string(command, env);
+```
+2. The original command string is freed since it's no longer needed.
+```c
+free(command);
+```
+3. If the linked list s is empty, indicating an error, the parsing function returns **`NULL`**.
+```c
+if (!s)
+    return (NULL);
+```
+4. The **concatenate_strings** function is called to concatenate the strings in the linked list s by thier value from **command_string** fucntion, creating a **master token**.
+- All the node with 1 and -1 concatinate with each other untile they stop in node with 0 and provide the master token, the token containe -1 gonna be directly a string and other gonna get their token defined in the lexer.
+```c
+s = concatenate_strings(s);
+```
+5. The **lexer_list** function is called to further process the linked list **`s`**, performing lexical analysis or tokenization.
+```c
+s = lexer_list(s);
+```
+6.  If the resulting linked list **`s`** is empty, indicating an error, the parsing function returns **`NULL`**.
+```c
+if (!s)
+    return (NULL);
+```
 
 By using these tokens, the lexer effectively breaks down the input string into meaningful units, which are later used for parsing and executing the commands in the Minishell project.
 
@@ -81,12 +144,57 @@ The t_minishell struct contains the following members:
 - `next`: A pointer to the next node in the linked list, allowing for the representation of pipe and if the next is null i mean there's no more pipe.
 - The `t_files` struct represent the input (in && herdoc) and output (out && append) file redirections for each command in the Minishell project.
 ```c
-typedef struct s_minishell {
-    char        **command;
-    t_files     *in;
-    t_files     *out;
-    struct s_minishell    *next;
-} t_minishell;
+typedef struct s_files {
+	char			*name;
+	int				type;
+	struct s_files	*next;
+}	t_files;
+```
+
+```c
+t_minishell	*parsing(char *command, t_env *env)
+{
+	t_list		*s;
+	t_minishell	*list;
+
+	s = command_string(command, env);
+	free(command);
+	if (!s)
+		return (NULL);
+	s = concatnate_strings(s);
+	s = lexer_list(s);
+	if (!s)
+		return (NULL);
+	list = parser_job(s);
+	ft_lstclear(&s);
+	if (!check_herdoc(list, env))
+	{
+		ft_lstclear_minishell(&list);
+		return (NULL);
+	}
+	return (list);
+}
+```
+#### #### Let's break down the steps of parser involved:
+1. The **parser_job** function is called to parse the linked list **s** and create a **t_minishell** list called list.
+```c
+list = parser_job(s);
+```
+2. The **ft_lstclear** function is called to clear the linked list s and free memory.
+```c
+ft_lstclear(&s);
+```
+3. The **check_herdoc** function is called to check for heredoc syntax in the list. If it fails, indicating an error, memory is freed, and **NULL** is returned.
+```c
+	if (!check_herdoc(list, env))
+	{
+		ft_lstclear_minishell(&list);
+		return (NULL);
+	}
+```
+3. Finally, the list is returned as the result of the parsing function to be executed.
+```c
+return (list);
 ```
 ### Execution
 
