@@ -87,7 +87,7 @@ t_minishell	*parsing(char *command, t_env *env)
 }
 ```
 #### Let's break down the steps of lexer involved:
-1. The **command_string** function is called, passing the command string and the environment context. This function converts the command string into a linked list called **s**, with each node containing a string and a token value. This token value have 3 values **1, 0 and -1**.
+1. For handling double, signle quote and expend. The **command_string** function is called, passing the command string and the environment context. This function converts the command string into a linked list called **s**, with each node containing a string and a token value. This token have 3 values **1, 0 and -1**.
 
 ```c
 s = command_string(command, env);
