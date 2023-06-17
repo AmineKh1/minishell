@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhouya <akhouya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:01:14 by akhouya           #+#    #+#             */
-/*   Updated: 2022/09/07 22:49:53 by akhouya          ###   ########.fr       */
+/*   Updated: 2023/06/17 16:48:43 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	signals_handling(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &handler);
 }
-
+t_exer	g_glb;
 int	main(int argc, char **argv, char **envp)
 {
 	char		*command;
 	t_env		*env;
 	t_minishell	*list;
-
+	
 	(void)argv;
 	signals_handling();
 	env = convert_env(envp);

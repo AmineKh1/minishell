@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouzid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 22:25:37 by aabouzid          #+#    #+#             */
-/*   Updated: 2022/09/04 22:25:52 by aabouzid         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:43:23 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int	is_number(char *tab)
 
 void	ft_exit(char **cmd)
 {
-	int	i;
-
-	i = 1;
 	printf("exit\n");
 	if (!cmd[1])
 		exit(0);

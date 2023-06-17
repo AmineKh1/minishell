@@ -34,10 +34,10 @@ static int	calcule(const char *nptr, int signe)
 
 int	ft_atoi(const char *nptr)
 {
-	unsigned long	r;
+	// unsigned long	r;
 	int				signe;
 
-	r = 0;
+	// r = 0;
 	signe = 1;
 	while (*nptr == ' ' || *nptr == '\t' || *nptr == '\v' || *nptr == '\r'
 		|| *nptr == '\n' || *nptr == '\f')

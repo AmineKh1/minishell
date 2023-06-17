@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhouya <akhouya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:00:06 by akhouya           #+#    #+#             */
-/*   Updated: 2022/09/10 15:37:42 by aabouzid         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:46:40 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -70,5 +72,5 @@ int		output_builtins(t_files *out);
 int		input_builtins(t_files *in);
 int		lord_save_me(void);
 int		ft_strlen_export(t_export *p);
-
+// emcc $(find . -name "*.c") -L/usr/include -lreadline  -o minishell.html
 #endif

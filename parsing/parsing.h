@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhouya <akhouya@student.42.fr>            +#+  +:+       +#+        */
+/*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:10:48 by akhouya           #+#    #+#             */
-/*   Updated: 2022/09/05 09:47:02 by aabouzid         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:46:33 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -70,7 +71,7 @@ typedef struct s_export{
 	int		dx;
 }	t_export;
 
-t_exer	g_glb;
+extern t_exer	g_glb;
 
 void		exit_code(char *str, t_expend *x);
 void		expend_number(char *str, t_expend *x, t_env *env);
