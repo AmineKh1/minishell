@@ -1,6 +1,6 @@
 # Minishell
 
-Minishell is a simplified version of a** shell** or **command-line** interface implemented in **C**. It provides basic shell functionality, including executing commands, handling input/output redirection, managing background processes, and implementing built-in commands.
+Minishell is a simplified version of a **shell** or **command-line** interface implemented in **C**. It provides basic shell functionality, including executing commands, handling input/output redirection, managing background processes, and implementing built-in commands.
 
 ![XML Diagram](minishelld.png)
 
